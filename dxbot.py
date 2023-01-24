@@ -17,8 +17,6 @@ warnings.filterwarnings("ignore")
 now = datetime.datetime.now()
 thirty_days_ago = now - datetime.timedelta(days=30)
 ts_30 = int(thirty_days_ago.timestamp())
-# Get mainnet endpoint from .env
-alchemy_key = os.getenv("ALCHEMY_KEY")
 
 mainnet = {
     "net": "MAINNET",
