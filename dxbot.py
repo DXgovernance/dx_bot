@@ -18,6 +18,10 @@ now = datetime.datetime.now()
 thirty_days_ago = now - datetime.timedelta(days=30)
 ts_30 = int(thirty_days_ago.timestamp())
 
+etherscan_key = os.getenv("ETHERSCAN_API_KEY")
+gnosisscan_key = os.getenv("GNOSISSCAN_API_KEY")
+arbiscan_key = os.getenv("ARBISCAN_API_KEY")
+
 mainnet = {
     "net": "MAINNET",
     "emoji": ":eth:",
@@ -29,7 +33,7 @@ mainnet = {
     "avatar": "0x519b70055af55A007110B4Ff99b0eA33071c720a",
     "startingBlock": int(
         requests.get(
-            f"https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp={ts_30}&closest=before"
+            f"https://api.etherscan.io/api?module=block&action=getblocknobytime&timestamp={ts_30}&closest=before&apikey={etherscan_key}"
         ).json()["result"]
     ),
     "abiEndpoint": "https://api.etherscan.io/api?module=contract&action=getabi&address=",
@@ -43,7 +47,7 @@ gnosis = {
     "avatar": "0xe716EC63C5673B3a4732D22909b38d779fa47c3F",
     "startingBlock": int(
         requests.get(
-            f"https://api.gnosisscan.io/api?module=block&action=getblocknobytime&timestamp={ts_30}&closest=before"
+            f"https://api.gnosisscan.io/api?module=block&action=getblocknobytime&timestamp={ts_30}&closest=before&apikey={gnosisscan_key}"
         ).json()["result"]
     ),
     "abiEndpoint": "https://api.gnosisscan.io/api?module=contract&action=getabi&address=",
@@ -57,7 +61,7 @@ arbitrum = {
     "avatar": "0x2B240b523f69b9aF3adb1C5924F6dB849683A394",
     "startingBlock": int(
         requests.get(
-            f"https://api.arbiscan.io/api?module=block&action=getblocknobytime&timestamp={ts_30}&closest=before"
+            f"https://api.arbiscan.io/api?module=block&action=getblocknobytime&timestamp={ts_30}&closest=before&apikey={arbiscan_key}"
         ).json()["result"]
     ),
     "abiEndpoint": "https://api.etherscan.io/api?module=contract&action=getabi&address=",
