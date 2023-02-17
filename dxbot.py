@@ -180,12 +180,13 @@ def parse_proposals(proposals, net):
 
 
 def get_title(proposal_hash):
-    ipfs_cache = pd.read_csv("ipfs_cache.csv")
-
-    if proposal_hash in ipfs_cache.hash:
-        title = ipfs_cache[ipfs_cache["hash"] == proposal_hash].title
-        return title
     try:
+        ipfs_cache = pd.read_csv("ipfs_cache.csv")
+
+        if proposal_hash in ipfs_cache.hash:
+            title = ipfs_cache[ipfs_cache["hash"] == proposal_hash].title
+            if title != "IPFS not returning Title":
+                return title
         req = requests.get("https://ipfs.io/ipfs/" + proposal_hash)
         title = req.json()["title"].strip()
         text = req.json()["description"]
